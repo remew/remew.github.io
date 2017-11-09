@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>index.html</title>
+  <meta name="format-detection" content="telephone=no">
+  <!-- user-scalable=no is not good at general web page. but if you have a reason to disable user scaling, user-scalable=no makes user to feeling better (maybe). -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <!-- normalize css -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <!-- custom css -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div>
+    <h1 id="room-name"></h1>
+    <label for="room-name-input">room name:<input type="text" id="room-name-input"></label>
+    <button id="join-button">join</button>
+    <div id="video-boxes" style="display:flex">
+    </div>
+  </div>
+  <template id="template-video">
+    <div style="width: 196px;border: solid 1px #000">
+      <p class="peer-id-text" style="text-align: center;"></p>
+      <video autoplay class="stream-video" style="width: 100%;"></video>
+    </div>
+  </template>
+  <script type="text/javascript" src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+  <script src="/js/app.bundle.js"></script>
+</body>
+</html>
