@@ -84,6 +84,7 @@ async function main() {
     const joinButton = $('#join-button');
     const roomNameInput = $('#room-name-input');
     const videoBoxes = $('#video-boxes');
+    const logger = $('#log');
 
     const peer = new Peer({
         key: 'a12ca00f-7eb6-4d49-a81c-58b661209428',
@@ -93,13 +94,13 @@ async function main() {
     let localPeerId = '';
 
     peer.on('open', async peerId => {
-        alert('open');
+        logger.textContent += 'open\n';
         localPeerId = peerId;
         localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
         // localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
         // localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
         videoBoxes.appendChild((0, _createVideo2.default)(localPeerId, localStream));
-        alert(localPeerId);
+        logger.textContent += localPeerId;
     });
     peer.on('call', call => {
         call.answer(stream);
@@ -107,7 +108,7 @@ async function main() {
     });
     peer.on('error', (...args) => {
         console.error(args);
-        roomNameInput.value = JSON.stringify(args);
+        logger.textContent += 'error:' + JSON.stringify(args);
     });
     joinButton.addEventListener('click', async () => {
         if (!roomNameInput.value) {
@@ -115,9 +116,14 @@ async function main() {
         }
         const room = peer.joinRoom(`sfu_room_${roomNameInput.value}`, { mode: 'sfu', stream: localStream });
         room.on('stream', stream => {
+            logger.textContent += 'stream';
             console.log('onStream');
             console.log(stream);
             videoBoxes.appendChild((0, _createVideo2.default)(stream.peerId, stream));
+        });
+        room.on('error', (...args) => {
+            console.error(args);
+            logger.textContent += 'error:' + JSON.stringify(args);
         });
     });
 }
