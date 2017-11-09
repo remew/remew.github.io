@@ -122,7 +122,11 @@ async function main() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    main().catch(e => {
+    main().then(() => {
+        const $ = document.querySelector.bind(document);
+        const roomNameInput = $('#log');
+        roomNameInput.textContent = 'then';
+    }).catch(e => {
         const $ = document.querySelector.bind(document);
         const roomNameInput = $('#room-name-input');
         roomNameInput.value = JSON.stringify(e);
