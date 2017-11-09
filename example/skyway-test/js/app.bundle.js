@@ -125,7 +125,9 @@ async function main() {
             // logger.textContent += 'stream';
             console.log('onStream');
             console.log(stream);
-            videoBoxes.appendChild((0, _createVideo2.default)(stream.peerId, stream));
+            const v = (0, _createVideo2.default)(stream.peerId, stream);
+            videoBoxes.appendChild(v);
+            v.play();
         });
         room.on('error', (...args) => {
             console.error(args);
