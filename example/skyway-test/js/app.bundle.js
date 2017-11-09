@@ -93,6 +93,7 @@ async function main() {
     let localPeerId = '';
 
     peer.on('open', async peerId => {
+        alert('open');
         localPeerId = peerId;
         localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
         // localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
